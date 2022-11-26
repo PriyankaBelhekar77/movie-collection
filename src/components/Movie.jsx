@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Table from "react-bootstrap/Table";
 
-function Movie({ movieData }) {
-  useEffect(() => {
-    console.log(movieData);
-  }, [movieData]);
+function Movie({ movieData, getSelectedMovieId }) {
+  const handleMovieSelect = (episode_id) => {
+    getSelectedMovieId(episode_id);
+  };
 
   return (
     <>
@@ -13,9 +13,13 @@ function Movie({ movieData }) {
           <tbody>
             {movieData.map((movie) => {
               return (
-                <tr key={movie.episode_id}>
+                <tr
+                  key={movie.episode_id}
+                  onClick={() => handleMovieSelect(movie.episode_id)}
+                  className="movie-row"
+                >
                   <td>{`EPISODE ${movie.episode_id}`}</td>
-                  <td>{movie.title}</td>
+                  <td>{`Episode - ${movie.title}`}</td>
                   <td>{movie.release_date}</td>
                 </tr>
               );

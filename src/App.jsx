@@ -5,6 +5,11 @@ import Search from "./components/Search";
 
 function App() {
   const [movieData, setMovieData] = useState([]);
+  const [selectedMovieId, setSelectedMovieId] = useState();
+
+  const getSelectedMovieId = (episode_id) => {
+    setSelectedMovieId(episode_id);
+  };
 
   const getFilmsData = async () => {
     const response = await fetch(" https://swapi.dev/api/films/?format=json");
@@ -22,7 +27,10 @@ function App() {
         <Search />
         <Row>
           <Col>
-            <Movie movieData={movieData} />
+            <Movie
+              movieData={movieData}
+              getSelectedMovieId={getSelectedMovieId}
+            />
           </Col>
           <Col></Col>
         </Row>
