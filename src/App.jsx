@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import Details from "./Details";
-import Movie from "./Movie";
-import Search from "./Search";
+import Details from "./components/Details";
+import Movie from "./components/Movie";
+import Search from "./components/Search";
+import { sortByID, sortByYear } from "./utils/utils";
 
 function App() {
   const [movieData, setMovieData] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
+  const [sortMoviesBy, setSortMoviesBy] = useState("");
 
   const getSelectedMovieId = (episode_id) => {
     setSelectedMovieId(episode_id);
+  };
+
+  const getSortMethod = (sortOrder) => {
+    setSortMoviesBy(sortOrder);
   };
 
   const getFilmsData = async () => {
@@ -18,6 +24,16 @@ function App() {
     const movieResponse = await response.json();
     setMovieData(movieResponse.results);
   };
+
+  const sortResult = useMemo(() => {
+    if (sortMoviesBy === "Episode") {
+      return sortByID([...movieData]);
+    }
+    if (sortMoviesBy === "Year") {
+      const sortByEpisodes = sortByYear([...movieData]);
+      return sortByEpisodes;
+    }
+  }, [sortMoviesBy]);
 
   useEffect(() => {
     getFilmsData();
@@ -32,10 +48,16 @@ function App() {
     }
   }, [selectedMovieId]);
 
+  useEffect(() => {
+    if (sortResult) {
+      setMovieData(sortResult);
+    }
+  }, [sortResult]);
+
   return (
     <div className="App">
       <Container>
-        <Search />
+        <Search getSortMethod={getSortMethod} />
         {movieData.length ? (
           <Row>
             <Col>

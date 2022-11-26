@@ -2,13 +2,17 @@ import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 
-function Search() {
+function Search({ getSortMethod }) {
+  const handleSort = (e) => {
+    getSortMethod(e.target.value);
+  };
+
   return (
     <Container className="container">
       <Row>
         <Col sm={3}>
           <Form.Group className="mb-3">
-            <Form.Select>
+            <Form.Select onChange={handleSort} placeholder="Sort By...">
               <option>Sort By...</option>
               <option>Episode</option>
               <option>Year</option>
