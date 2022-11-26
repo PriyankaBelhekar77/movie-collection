@@ -10,3 +10,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+.container {
+  margin: 1rem;
+}
+
+.movie-row {
+  cursor: pointer;
+}
