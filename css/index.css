@@ -18,3 +18,11 @@
 .movie-row {
   cursor: pointer;
 }
+
+.details-card {
+  border: none !important;
+}
+
+.details-card-body {
+  padding: 0 !important;
+}
