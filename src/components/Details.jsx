@@ -25,7 +25,7 @@ function Details({ selectedMovie }) {
 
 Details.propTypes = {
   selectedMovie: PropTypes.shape({
-    episode_id: PropTypes.string,
+    episode_id: PropTypes.number,
     title: PropTypes.string,
     opening_crawl: PropTypes.string,
     director: PropTypes.string,

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { getFilmsData } from './api';
 import Details from './components/Details';
 import Loader from './components/Loader';
 import Movie from './components/Movie';
@@ -14,7 +15,7 @@ function App() {
   const [sortMoviesBy, setSortMoviesBy] = useState('');
   const [serachText, setSearchText] = useState('');
   const [filterMovies, setFilterMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getSelectedMovieId = (episode_id) => {
     setSelectedMovieId(episode_id);
@@ -22,18 +23,6 @@ function App() {
 
   const getSortMethod = (sortOrder) => {
     setSortMoviesBy(sortOrder);
-  };
-
-  const getSearchText = (text) => {
-    setSearchText(text);
-  };
-
-  const getFilmsData = async () => {
-    setIsLoading(true);
-    const response = await fetch('https://swapi.dev/api/films/?format=json');
-    const movieResponse = await response.json();
-    setMovieData(movieResponse.results);
-    setIsLoading(false);
   };
 
   const sortResult = useMemo(() => {
@@ -47,7 +36,12 @@ function App() {
   }, [sortMoviesBy]);
 
   useEffect(() => {
-    getFilmsData();
+    getFilmsData()
+      .then((value) => {
+        setIsLoading(false);
+        setMovieData(value);
+      })
+      .catch((error) => console.log(error.message));
   }, []);
 
   useEffect(() => {
@@ -77,7 +71,7 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Search getSortMethod={getSortMethod} getSearchText={getSearchText} />
+        <Search getSortMethod={getSortMethod} serachText={serachText} setSearchText={setSearchText} />
         {isLoading ? (
           <Loader />
         ) : movieData.length ? (
