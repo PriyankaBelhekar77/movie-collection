@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Container, Row } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -6,16 +5,10 @@ import { BsSearch } from 'react-icons/bs';
 import Form from 'react-bootstrap/Form';
 import { OPTIONS, PLACE_HOLDER } from '../constants/constants';
 
-function Search({ getSortMethod, getSearchText }) {
-  const [serachText, setSearchText] = useState('');
-
+function Search({ serachText, setSearchText, getSortMethod }) {
   const handleSort = (e) => {
     getSortMethod(e.target.value);
   };
-
-  useEffect(() => {
-    return getSearchText(serachText);
-  }, [serachText]);
 
   return (
     <Container className="container">
@@ -38,6 +31,7 @@ function Search({ getSortMethod, getSearchText }) {
               placeholder={PLACE_HOLDER.search}
               aria-label={PLACE_HOLDER.search}
               value={serachText}
+              name="serachText"
               onChange={(e) => setSearchText(e.target.value)}
             />
           </InputGroup>
@@ -48,8 +42,9 @@ function Search({ getSortMethod, getSearchText }) {
 }
 
 Search.propTypes = {
+  serachText: PropTypes.string,
+  setSearchText: PropTypes.func,
   getSortMethod: PropTypes.func,
-  getSearchText: PropTypes.func,
 };
 
 export default Search;
