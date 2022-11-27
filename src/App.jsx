@@ -14,6 +14,7 @@ function App() {
   const [selectedMovie, setSelectedMovie] = useState();
   const [sortMoviesBy, setSortMoviesBy] = useState('');
   const [searchText, setSearchText] = useState('');
+  const [error, setError] = useState('');
   const [filterMovies, setFilterMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -39,9 +40,12 @@ function App() {
     getFilmsData()
       .then((value) => {
         setIsLoading(false);
-        setMovieData(value);
+        if (value.error) {
+          setError(value.message)
+        } else {
+          setMovieData(value);
+        }
       })
-      .catch((error) => console.log(error.message));
   }, []);
 
   useEffect(() => {
@@ -72,6 +76,7 @@ function App() {
     <div className="App">
       <Container>
         <Search getSortMethod={getSortMethod} searchText={searchText} setSearchText={setSearchText} />
+        {error ? <div className='error'><strong>{error}</strong></div> : null}
         {isLoading ? (
           <Loader />
         ) : movieData.length ? (

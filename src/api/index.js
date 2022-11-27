@@ -5,7 +5,7 @@ export const getFilmsData = async () => {
     const json = await response.json();
     data = json.results;
   } catch (e) {
-    data = { message: 'Failed to fetch data', errorObj: e };
+    data = { error: true, message: 'Failed to fetch data', errorObj: e };
   }
   return data;
 };
