@@ -1,17 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import Details from "./components/Details";
-import Loader from "./components/Loader";
-import Movie from "./components/Movie";
-import Search from "./components/Search";
-import { sortByID, sortByYear } from "./utils/utils";
+import { useEffect, useMemo, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import Details from './components/Details';
+import Loader from './components/Loader';
+import Movie from './components/Movie';
+import Search from './components/Search';
+import { sortByID, sortByYear } from './utils/utils';
 
 function App() {
   const [movieData, setMovieData] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
-  const [sortMoviesBy, setSortMoviesBy] = useState("");
-  const [serachText, setSearchText] = useState("");
+  const [sortMoviesBy, setSortMoviesBy] = useState('');
+  const [serachText, setSearchText] = useState('');
   const [filterMovies, setFilterMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,17 +29,17 @@ function App() {
 
   const getFilmsData = async () => {
     setIsLoading(true);
-    const response = await fetch(" https://swapi.dev/api/films/?format=json");
+    const response = await fetch(' https://swapi.dev/api/films/?format=json');
     const movieResponse = await response.json();
     setMovieData(movieResponse.results);
     setIsLoading(false);
   };
 
   const sortResult = useMemo(() => {
-    if (sortMoviesBy === "Episode") {
+    if (sortMoviesBy === 'Episode') {
       return sortByID([...movieData]);
     }
-    if (sortMoviesBy === "Year" || sortMoviesBy.includes("Sort")) {
+    if (sortMoviesBy === 'Year' || sortMoviesBy.includes('Sort')) {
       const sortByEpisodes = sortByYear([...movieData]);
       return sortByEpisodes;
     }
@@ -51,9 +51,7 @@ function App() {
 
   useEffect(() => {
     if (selectedMovieId) {
-      const selectedDetails = movieData.filter(
-        (movie) => movie.episode_id === selectedMovieId
-      )[0];
+      const selectedDetails = movieData.filter((movie) => movie.episode_id === selectedMovieId)[0];
       setSelectedMovie(selectedDetails);
     }
   }, [selectedMovieId]);
@@ -67,12 +65,7 @@ function App() {
   useEffect(() => {
     if (serachText) {
       const filterResult = movieData.filter((item) => {
-        return (
-          item.title
-            .toString()
-            .toLowerCase()
-            .indexOf(serachText.toLowerCase()) > -1
-        );
+        return item.title.toString().toLowerCase().indexOf(serachText.toLowerCase()) > -1;
       });
       setFilterMovies(filterResult);
     } else {

@@ -1,7 +1,5 @@
 export const sortByID = (data) => {
-  const sortResult = data.sort(
-    (prevVal, nextVal) => prevVal.episode_id - nextVal.episode_id
-  );
+  const sortResult = data.sort((prevVal, nextVal) => prevVal.episode_id - nextVal.episode_id);
   return sortResult;
 };
 

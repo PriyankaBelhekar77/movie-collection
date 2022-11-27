@@ -1,5 +1,5 @@
-import React from "react";
-import Table from "react-bootstrap/Table";
+import React from 'react';
+import Table from 'react-bootstrap/Table';
 
 function Movie({ movieData, getSelectedMovieId }) {
   const handleMovieSelect = (episode_id) => {
@@ -13,11 +13,7 @@ function Movie({ movieData, getSelectedMovieId }) {
           <tbody>
             {movieData.map((movie) => {
               return (
-                <tr
-                  key={movie.episode_id}
-                  onClick={() => handleMovieSelect(movie.episode_id)}
-                  className="movie-row"
-                >
+                <tr key={movie.episode_id} onClick={() => handleMovieSelect(movie.episode_id)} className="movie-row">
                   <td>{`EPISODE ${movie.episode_id}`}</td>
                   <td>{`Episode - ${movie.title}`}</td>
                   <td>{movie.release_date}</td>
@@ -30,5 +26,4 @@ function Movie({ movieData, getSelectedMovieId }) {
     </>
   );
 }
-
 export default React.memo(Movie);
