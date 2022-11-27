@@ -10,7 +10,8 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "eslint . --ext .js,.jsx",
-    "prettier": "prettier . -c"
+    "prettier:check": "prettier . -c",
+    "prettier:fix": "prettier . --write"
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
