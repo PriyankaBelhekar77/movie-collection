@@ -1,5 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
+import { BsSearch } from "react-icons/bs";
 import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
 
@@ -11,9 +12,7 @@ function Search({ getSortMethod, getSearchText }) {
   };
 
   useEffect(() => {
-    if (serachText) {
-      return getSearchText(serachText);
-    }
+    return getSearchText(serachText);
   }, [serachText]);
 
   return (
@@ -30,7 +29,9 @@ function Search({ getSortMethod, getSearchText }) {
         </Col>
         <Col>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+            <InputGroup.Text id="basic-addon1">
+              <BsSearch />
+            </InputGroup.Text>
             <Form.Control
               placeholder="Type to search..."
               aria-label="Type to search..."
