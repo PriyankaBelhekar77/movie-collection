@@ -13,7 +13,9 @@ function Details({ selectedMovie }) {
           </Card.Body>
         </Card>
       ) : (
-        <div>No movie selected</div>
+        <div className="serach-container">
+          <h6>No movie selected</h6>
+        </div>
       )}
     </>
   );

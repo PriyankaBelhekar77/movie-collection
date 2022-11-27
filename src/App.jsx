@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Details from "./components/Details";
+import Loader from "./components/Loader";
 import Movie from "./components/Movie";
 import Search from "./components/Search";
 import { sortByID, sortByYear } from "./utils/utils";
@@ -12,6 +13,7 @@ function App() {
   const [sortMoviesBy, setSortMoviesBy] = useState("");
   const [serachText, setSearchText] = useState("");
   const [filterMovies, setFilterMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getSelectedMovieId = (episode_id) => {
     setSelectedMovieId(episode_id);
@@ -26,9 +28,11 @@ function App() {
   };
 
   const getFilmsData = async () => {
+    setIsLoading(true);
     const response = await fetch(" https://swapi.dev/api/films/?format=json");
     const movieResponse = await response.json();
     setMovieData(movieResponse.results);
+    setIsLoading(false);
   };
 
   const sortResult = useMemo(() => {
@@ -71,6 +75,8 @@ function App() {
         );
       });
       setFilterMovies(filterResult);
+    } else {
+      setFilterMovies([]);
     }
   }, [serachText]);
 
@@ -78,7 +84,9 @@ function App() {
     <div className="App">
       <Container>
         <Search getSortMethod={getSortMethod} getSearchText={getSearchText} />
-        {movieData.length ? (
+        {isLoading ? (
+          <Loader />
+        ) : movieData.length ? (
           <Row>
             <Col>
               <Movie
