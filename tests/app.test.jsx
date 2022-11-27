@@ -24,6 +24,16 @@ describe('App', () => {
       await waitFor(() => screen.getByText('EPISODE 4'));
       expect(screen.getByText('EPISODE 4')).toBeInTheDocument();
     });
+    it('should display error on failed api call', async () => {
+      const error = {
+        error: true,
+        message: 'Failed to fetch data'
+      }
+      vi.spyOn(API, 'getFilmsData').mockResolvedValue(error);
+      act(() => render(<App />));
+      await waitFor(() => screen.getByText('Failed to fetch data'));
+      expect(screen.getByText('Failed to fetch data')).toBeInTheDocument();
+    });
   });
 
   describe('Details', () => {
