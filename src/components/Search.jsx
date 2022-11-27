@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { BsSearch } from 'react-icons/bs';
 import Form from 'react-bootstrap/Form';
+import { OPTIONS, PLACE_HOLDER } from '../constants/constants';
 
 function Search({ getSortMethod, getSearchText }) {
   const [serachText, setSearchText] = useState('');
@@ -21,22 +22,21 @@ function Search({ getSortMethod, getSearchText }) {
       <Row>
         <Col sm={3}>
           <Form.Group className="mb-3">
-            <Form.Select onChange={handleSort} placeholder="Sort By...">
-              <option>Sort By...</option>
-              <option>Episode</option>
-              <option>Year</option>
+            <Form.Select onChange={handleSort} placeholder={PLACE_HOLDER.sort}>
+              <option>{OPTIONS.sort}</option>
+              <option>{OPTIONS.episode}</option>
+              <option>{OPTIONS.year}</option>
             </Form.Select>
           </Form.Group>
         </Col>
         <Col>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">
+            <InputGroup.Text>
               <BsSearch />
             </InputGroup.Text>
             <Form.Control
-              placeholder="Type to search..."
-              aria-label="Type to search..."
-              aria-describedby="search"
+              placeholder={PLACE_HOLDER.search}
+              aria-label={PLACE_HOLDER.search}
               value={serachText}
               onChange={(e) => setSearchText(e.target.value)}
             />

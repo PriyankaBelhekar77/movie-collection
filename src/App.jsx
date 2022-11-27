@@ -4,6 +4,7 @@ import Details from './components/Details';
 import Loader from './components/Loader';
 import Movie from './components/Movie';
 import Search from './components/Search';
+import { OPTIONS } from './constants/constants';
 import { sortByID, sortByYear } from './utils/utils';
 
 function App() {
@@ -29,17 +30,17 @@ function App() {
 
   const getFilmsData = async () => {
     setIsLoading(true);
-    const response = await fetch(' https://swapi.dev/api/films/?format=json');
+    const response = await fetch('https://swapi.dev/api/films/?format=json');
     const movieResponse = await response.json();
     setMovieData(movieResponse.results);
     setIsLoading(false);
   };
 
   const sortResult = useMemo(() => {
-    if (sortMoviesBy === 'Episode') {
+    if (sortMoviesBy === OPTIONS.episode) {
       return sortByID([...movieData]);
     }
-    if (sortMoviesBy === 'Year' || sortMoviesBy.includes('Sort')) {
+    if (sortMoviesBy === OPTIONS.year || sortMoviesBy.includes('Sort')) {
       const sortByEpisodes = sortByYear([...movieData]);
       return sortByEpisodes;
     }
