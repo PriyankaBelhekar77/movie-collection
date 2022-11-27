@@ -1,7 +1,9 @@
+import { MESSAGE } from '../constants/constants';
+
 function Loader() {
   return (
     <div className="serach-container">
-      <h6>Loading...</h6>
+      <h6>{MESSAGE.loading}</h6>
     </div>
   );
 }

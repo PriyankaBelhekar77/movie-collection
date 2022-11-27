@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
+import { MESSAGE } from '../constants/constants';
 
 function Details({ selectedMovie }) {
   return (
@@ -8,14 +9,14 @@ function Details({ selectedMovie }) {
       {selectedMovie ? (
         <Card className="details-card">
           <Card.Body className="details-card-body">
-            <Card.Title>{`Episode ${selectedMovie.episode_id} - ${selectedMovie.title}`}</Card.Title>
+            <Card.Title>{`${MESSAGE.episode} ${selectedMovie.episode_id} - ${selectedMovie.title}`}</Card.Title>
             <Card.Text>{selectedMovie.opening_crawl}</Card.Text>
-            <Card.Text>{`Directed by: ${selectedMovie.director}`}</Card.Text>
+            <Card.Text>{`${MESSAGE.directedBy}: ${selectedMovie.director}`}</Card.Text>
           </Card.Body>
         </Card>
       ) : (
         <div className="serach-container">
-          <h6>No movie selected</h6>
+          <h6>{MESSAGE.noMovieSelected}</h6>
         </div>
       )}
     </>
