@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table';
 
 function Movie({ movieData, getSelectedMovieId }) {
@@ -26,4 +27,10 @@ function Movie({ movieData, getSelectedMovieId }) {
     </>
   );
 }
+
+Movie.propTypes = {
+  movieData: PropTypes.array,
+  getSelectedMovieId: PropTypes.func,
+};
+
 export default React.memo(Movie);
