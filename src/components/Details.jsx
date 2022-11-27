@@ -1,5 +1,6 @@
-import React from "react";
-import { Card } from "react-bootstrap";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Card } from 'react-bootstrap';
 
 function Details({ selectedMovie }) {
   return (
@@ -20,5 +21,14 @@ function Details({ selectedMovie }) {
     </>
   );
 }
+
+Details.propTypes = {
+  selectedMovie: PropTypes.shape({
+    episode_id: PropTypes.string,
+    title: PropTypes.string,
+    opening_crawl: PropTypes.string,
+    director: PropTypes.string,
+  }),
+};
 
 export default React.memo(Details);

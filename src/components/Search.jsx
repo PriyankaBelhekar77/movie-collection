@@ -1,11 +1,12 @@
-import { Col, Container, Row } from "react-bootstrap";
-import InputGroup from "react-bootstrap/InputGroup";
-import { BsSearch } from "react-icons/bs";
-import Form from "react-bootstrap/Form";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Col, Container, Row } from 'react-bootstrap';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { BsSearch } from 'react-icons/bs';
+import Form from 'react-bootstrap/Form';
 
 function Search({ getSortMethod, getSearchText }) {
-  const [serachText, setSearchText] = useState("");
+  const [serachText, setSearchText] = useState('');
 
   const handleSort = (e) => {
     getSortMethod(e.target.value);
@@ -45,5 +46,10 @@ function Search({ getSortMethod, getSearchText }) {
     </Container>
   );
 }
+
+Search.propTypes = {
+  getSortMethod: PropTypes.func,
+  getSearchText: PropTypes.func,
+};
 
 export default Search;
