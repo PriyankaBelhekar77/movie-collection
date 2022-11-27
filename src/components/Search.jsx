@@ -1,11 +1,20 @@
 import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import { useEffect, useState } from "react";
 
-function Search({ getSortMethod }) {
+function Search({ getSortMethod, getSearchText }) {
+  const [serachText, setSearchText] = useState("");
+
   const handleSort = (e) => {
     getSortMethod(e.target.value);
   };
+
+  useEffect(() => {
+    if (serachText) {
+      return getSearchText(serachText);
+    }
+  }, [serachText]);
 
   return (
     <Container className="container">
@@ -26,6 +35,8 @@ function Search({ getSortMethod }) {
               placeholder="Type to search..."
               aria-label="Type to search..."
               aria-describedby="search"
+              value={serachText}
+              onChange={(e) => setSearchText(e.target.value)}
             />
           </InputGroup>
         </Col>

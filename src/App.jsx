@@ -10,6 +10,8 @@ function App() {
   const [selectedMovieId, setSelectedMovieId] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
   const [sortMoviesBy, setSortMoviesBy] = useState("");
+  const [serachText, setSearchText] = useState("");
+  const [filterMovies, setFilterMovies] = useState([]);
 
   const getSelectedMovieId = (episode_id) => {
     setSelectedMovieId(episode_id);
@@ -17,6 +19,10 @@ function App() {
 
   const getSortMethod = (sortOrder) => {
     setSortMoviesBy(sortOrder);
+  };
+
+  const getSearchText = (text) => {
+    setSearchText(text);
   };
 
   const getFilmsData = async () => {
@@ -29,7 +35,7 @@ function App() {
     if (sortMoviesBy === "Episode") {
       return sortByID([...movieData]);
     }
-    if (sortMoviesBy === "Year") {
+    if (sortMoviesBy === "Year" || sortMoviesBy.includes("Sort")) {
       const sortByEpisodes = sortByYear([...movieData]);
       return sortByEpisodes;
     }
@@ -54,15 +60,29 @@ function App() {
     }
   }, [sortResult]);
 
+  useEffect(() => {
+    if (serachText) {
+      const filterResult = movieData.filter((item) => {
+        return (
+          item.title
+            .toString()
+            .toLowerCase()
+            .indexOf(serachText.toLowerCase()) > -1
+        );
+      });
+      setFilterMovies(filterResult);
+    }
+  }, [serachText]);
+
   return (
     <div className="App">
       <Container>
-        <Search getSortMethod={getSortMethod} />
+        <Search getSortMethod={getSortMethod} getSearchText={getSearchText} />
         {movieData.length ? (
           <Row>
             <Col>
               <Movie
-                movieData={movieData}
+                movieData={filterMovies.length ? filterMovies : movieData}
                 getSelectedMovieId={getSelectedMovieId}
               />
             </Col>
