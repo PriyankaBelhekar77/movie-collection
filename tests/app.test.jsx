@@ -42,7 +42,7 @@ describe('App', () => {
       fireEvent.change(screen.getByPlaceholderText('Type to search...'), {
         target: { value: 'The Empire' },
       });
-      expect(screen.getByText('Episode - The Empire Strikes Back')).toBeInTheDocument();
+      expect(screen.getByText('Episode V - The Empire Strikes Back')).toBeInTheDocument();
     });
   });
 });
