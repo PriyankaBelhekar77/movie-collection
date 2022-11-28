@@ -28,24 +28,30 @@ function App() {
 
   const sortResult = useMemo(() => {
     if (sortMoviesBy === OPTIONS.episode) {
-      return sortByID([...movieData]);
+      if (filterMovies.length) {
+        return sortByID([...filterMovies]);
+      } else {
+        return sortByID([...movieData]);
+      }
     }
     if (sortMoviesBy === OPTIONS.year || sortMoviesBy.includes('Sort')) {
-      const sortByEpisodes = sortByYear([...movieData]);
-      return sortByEpisodes;
+      if (filterMovies.length) {
+        return sortByYear([...filterMovies]);
+      } else {
+        return sortByYear([...movieData]);
+      }
     }
-  }, [sortMoviesBy]);
+  }, [sortMoviesBy, filterMovies]);
 
   useEffect(() => {
-    getFilmsData()
-      .then((value) => {
-        setIsLoading(false);
-        if (value.error) {
-          setError(value.message)
-        } else {
-          setMovieData(value);
-        }
-      })
+    getFilmsData().then((value) => {
+      setIsLoading(false);
+      if (value.error) {
+        setError(value.message);
+      } else {
+        setMovieData(value);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -57,7 +63,11 @@ function App() {
 
   useEffect(() => {
     if (sortResult) {
-      setMovieData(sortResult);
+      if (filterMovies.length) {
+        setFilterMovies(sortResult);
+      } else {
+        setMovieData(sortResult);
+      }
     }
   }, [sortResult]);
 
@@ -76,7 +86,11 @@ function App() {
     <div className="App">
       <Container>
         <Search getSortMethod={getSortMethod} searchText={searchText} setSearchText={setSearchText} />
-        {error ? <div className='error'><strong>{error}</strong></div> : null}
+        {error ? (
+          <div className="error">
+            <strong>{error}</strong>
+          </div>
+        ) : null}
         {isLoading ? (
           <Loader />
         ) : movieData.length ? (
