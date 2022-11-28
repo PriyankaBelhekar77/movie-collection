@@ -27,8 +27,8 @@ describe('App', () => {
     it('should display error on failed api call', async () => {
       const error = {
         error: true,
-        message: 'Failed to fetch data'
-      }
+        message: 'Failed to fetch data',
+      };
       vi.spyOn(API, 'getFilmsData').mockResolvedValue(error);
       act(() => render(<App />));
       await waitFor(() => screen.getByText('Failed to fetch data'));
