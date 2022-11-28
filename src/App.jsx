@@ -13,7 +13,8 @@ function App() {
   const [selectedMovieId, setSelectedMovieId] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
   const [sortMoviesBy, setSortMoviesBy] = useState('');
-  const [serachText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const [error, setError] = useState('');
   const [filterMovies, setFilterMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -39,9 +40,12 @@ function App() {
     getFilmsData()
       .then((value) => {
         setIsLoading(false);
-        setMovieData(value);
+        if (value.error) {
+          setError(value.message)
+        } else {
+          setMovieData(value);
+        }
       })
-      .catch((error) => console.log(error.message));
   }, []);
 
   useEffect(() => {
@@ -58,20 +62,21 @@ function App() {
   }, [sortResult]);
 
   useEffect(() => {
-    if (serachText) {
+    if (searchText) {
       const filterResult = movieData.filter((item) => {
-        return item.title.toString().toLowerCase().indexOf(serachText.toLowerCase()) > -1;
+        return item.title.toString().toLowerCase().indexOf(searchText.toLowerCase()) > -1;
       });
       setFilterMovies(filterResult);
     } else {
       setFilterMovies([]);
     }
-  }, [serachText]);
+  }, [searchText]);
 
   return (
     <div className="App">
       <Container>
-        <Search getSortMethod={getSortMethod} serachText={serachText} setSearchText={setSearchText} />
+        <Search getSortMethod={getSortMethod} searchText={searchText} setSearchText={setSearchText} />
+        {error ? <div className='error'><strong>{error}</strong></div> : null}
         {isLoading ? (
           <Loader />
         ) : movieData.length ? (
