@@ -85,7 +85,12 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Search getSortMethod={getSortMethod} searchText={searchText} setSearchText={setSearchText} />
+        <Search
+          searchText={searchText}
+          isLoading={isLoading}
+          getSortMethod={getSortMethod}
+          setSearchText={setSearchText}
+        />
         {error ? (
           <div className="error">
             <strong>{error}</strong>

@@ -5,7 +5,7 @@ import { BsSearch } from 'react-icons/bs';
 import Form from 'react-bootstrap/Form';
 import { OPTIONS, PLACE_HOLDER } from '../constants/constants';
 
-function Search({ searchText, setSearchText, getSortMethod }) {
+function Search({ searchText, isLoading, setSearchText, getSortMethod }) {
   const handleSort = (e) => {
     getSortMethod(e.target.value);
   };
@@ -15,7 +15,7 @@ function Search({ searchText, setSearchText, getSortMethod }) {
       <Row>
         <Col sm={3}>
           <Form.Group className="mb-3">
-            <Form.Select onChange={handleSort} placeholder={PLACE_HOLDER.sort}>
+            <Form.Select onChange={handleSort} placeholder={PLACE_HOLDER.sort} disabled={isLoading}>
               <option>{OPTIONS.sort}</option>
               <option>{OPTIONS.episode}</option>
               <option>{OPTIONS.year}</option>
@@ -32,6 +32,7 @@ function Search({ searchText, setSearchText, getSortMethod }) {
               aria-label={PLACE_HOLDER.search}
               value={searchText}
               name="searchText"
+              disabled={isLoading}
               onChange={(e) => setSearchText(e.target.value)}
             />
           </InputGroup>
@@ -43,6 +44,7 @@ function Search({ searchText, setSearchText, getSortMethod }) {
 
 Search.propTypes = {
   searchText: PropTypes.string,
+  isLoading: PropTypes.bool,
   setSearchText: PropTypes.func,
   getSortMethod: PropTypes.func,
 };
