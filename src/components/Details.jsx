@@ -8,10 +8,13 @@ function Details({ selectedMovie }) {
     <>
       {selectedMovie ? (
         <Card className="details-card">
-          <Card.Body className="details-card-body">
-            <Card.Title>{`${MESSAGE.episode} ${selectedMovie.episode_id} - ${selectedMovie.title}`}</Card.Title>
-            <Card.Text>{selectedMovie.opening_crawl}</Card.Text>
-            <Card.Text>{`${MESSAGE.directedBy}: ${selectedMovie.director}`}</Card.Text>
+          <Card.Body className="details-card-body" role="article">
+            <Card.Title
+              tabIndex={0}
+              role="heading"
+            >{`${MESSAGE.episode} ${selectedMovie.episode_id} - ${selectedMovie.title}`}</Card.Title>
+            <Card.Text tabIndex={0}>{selectedMovie.opening_crawl}</Card.Text>
+            <Card.Text tabIndex={0}>{`${MESSAGE.directedBy}: ${selectedMovie.director}`}</Card.Text>
           </Card.Body>
         </Card>
       ) : (
