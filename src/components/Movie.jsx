@@ -8,6 +8,12 @@ function Movie({ movieData, getSelectedMovieId }) {
     getSelectedMovieId(episode_id);
   };
 
+  const handleKeyDown = (e, episode_id) => {
+    if (e.code === 'Enter') {
+      getSelectedMovieId(episode_id);
+    }
+  };
+
   return (
     <>
       {movieData.length ? (
@@ -15,7 +21,14 @@ function Movie({ movieData, getSelectedMovieId }) {
           <tbody>
             {movieData.map((movie) => {
               return (
-                <tr key={movie.episode_id} onClick={() => handleMovieSelect(movie.episode_id)} className="movie-row">
+                <tr
+                  role="button"
+                  tabIndex={0}
+                  key={movie.episode_id}
+                  onKeyDown={(e) => handleKeyDown(e, movie.episode_id)}
+                  onClick={() => handleMovieSelect(movie.episode_id)}
+                  className="movie-row"
+                >
                   <td>{`EPISODE ${movie.episode_id}`}</td>
                   <td>{`Episode ${ROMAN_NUM[movie.episode_id]} - ${movie.title}`}</td>
                   <td>{movie.release_date}</td>

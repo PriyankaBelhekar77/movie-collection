@@ -25,7 +25,7 @@ function Search({ searchText, setSearchText, getSortMethod }) {
         <Col>
           <InputGroup className="mb-3">
             <InputGroup.Text>
-              <BsSearch />
+              <BsSearch role="img" alt="search" />
             </InputGroup.Text>
             <Form.Control
               placeholder={PLACE_HOLDER.search}
