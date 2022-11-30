@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
-import { MESSAGE } from '../constants/constants';
+import { MESSAGE } from '../constants';
 
 function Details({ selectedMovie }) {
   return (

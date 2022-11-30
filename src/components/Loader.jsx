@@ -1,4 +1,4 @@
-import { MESSAGE } from '../constants/constants';
+import { MESSAGE } from '../constants';
 
 function Loader() {
   return (

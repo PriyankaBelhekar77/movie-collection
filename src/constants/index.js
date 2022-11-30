@@ -2,6 +2,8 @@ export const OPTIONS = {
   sort: 'Sort By...',
   episode: 'Episode',
   year: 'Year',
+  titleAsc: 'Title A-Z',
+  titleDesc: 'Title Z-A',
 };
 
 export const PLACE_HOLDER = {

@@ -3,9 +3,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { BsSearch } from 'react-icons/bs';
 import Form from 'react-bootstrap/Form';
-import { OPTIONS, PLACE_HOLDER } from '../constants/constants';
+import { OPTIONS, PLACE_HOLDER } from '../constants';
 
-function Search({ searchText, isLoading, setSearchText, getSortMethod }) {
+function Search({ searchText, setSearchText, getSortMethod }) {
   const handleSort = (e) => {
     getSortMethod(e.target.value);
   };
@@ -15,10 +15,12 @@ function Search({ searchText, isLoading, setSearchText, getSortMethod }) {
       <Row>
         <Col sm={3}>
           <Form.Group className="mb-3">
-            <Form.Select onChange={handleSort} placeholder={PLACE_HOLDER.sort} disabled={isLoading}>
+            <Form.Select onChange={handleSort} placeholder={PLACE_HOLDER.sort}>
               <option>{OPTIONS.sort}</option>
               <option>{OPTIONS.episode}</option>
               <option>{OPTIONS.year}</option>
+              <option>{OPTIONS.titleAsc}</option>
+              <option>{OPTIONS.titleDesc}</option>
             </Form.Select>
           </Form.Group>
         </Col>
@@ -32,7 +34,6 @@ function Search({ searchText, isLoading, setSearchText, getSortMethod }) {
               aria-label={PLACE_HOLDER.search}
               value={searchText}
               name="searchText"
-              disabled={isLoading}
               onChange={(e) => setSearchText(e.target.value)}
             />
           </InputGroup>
@@ -44,7 +45,6 @@ function Search({ searchText, isLoading, setSearchText, getSortMethod }) {
 
 Search.propTypes = {
   searchText: PropTypes.string,
-  isLoading: PropTypes.bool,
   setSearchText: PropTypes.func,
   getSortMethod: PropTypes.func,
 };

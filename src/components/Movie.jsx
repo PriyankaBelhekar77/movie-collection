@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table';
-import { ROMAN_NUM } from '../constants/constants';
+import { ROMAN_NUM } from '../constants';
 
 function Movie({ movieData, getSelectedMovieId }) {
   const handleMovieSelect = (episode_id) => {
